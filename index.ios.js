@@ -35,9 +35,25 @@ class Project extends Component {
         <Text style={{margin: 20}}>Number Example</Text>
         <ValueStore
           storageKey={"TEST"}
-          style={{backgroundColor: "rgb(74,144,226)"}}
+          style={{backgroundColor: "rgb(80,227,194)"}}
           defaultValue={Math.random()}
           render={(value, loading, onChange) => {
+            return loading ? (
+              <Text>Loading...</Text>
+            ) : (
+              <TouchableOpacity onPress={() => {onChange(Math.random())}}>
+                <Text>Value: {value}</Text>
+              </TouchableOpacity>
+            )
+          }}
+        />
+        <Text style={{margin: 20}}>Number Example</Text>
+          <ValueStore
+            storageKey={"TEST"}
+            style={{backgroundColor: "rgb(74,144,226)"}}
+            defaultValue={Math.random()}
+            shouldSyncChanges={false}
+            render={(value, loading, onChange) => {
             return loading ? (
               <Text>Loading...</Text>
             ) : (

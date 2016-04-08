@@ -4,6 +4,25 @@ import React, {
   AsyncStorage,
 } from 'react-native'
 
+const instances = {}
+
+const addInstance = (storageKey, instance) => {
+  instances[storageKey] = instances[storageKey] || new Set()
+  instances[storageKey].add(instance)
+}
+  
+const removeInstance = (storageKey, instance) => {
+  instances[storageKey] && instances[storageKey].remove(instance)
+}
+
+const updateOtherInstances = (storageKey, thisInstance, newValue) => {
+  instances[storageKey] && instances[storageKey].forEach(instance => {
+    if (instance !== thisInstance) {
+      instance.setState({value: newValue})
+    }
+  })
+}
+
 class ValueStore extends Component {
   constructor() {
     super()
@@ -16,7 +35,7 @@ class ValueStore extends Component {
   componentWillMount() {
     const {storageKey, defaultValue, deserialize} = this.props
     
-    if (! storageKey) {
+    if (typeof storageKey === 'undefined') {
       throw new Error(`ValueStore missing required prop 'storageKey'`)
     }
     
@@ -38,10 +57,24 @@ class ValueStore extends Component {
       this.setState({loading: false})
     })
   }
-  onChange(value) {
-    const {storageKey, serialize} = this.props
+  componentDidMount() {
+    const {storageKey} = this.props
     
-    if (! storageKey) {
+    if (typeof storageKey !== 'undefined') {
+      addInstance(storageKey, this)
+    }
+  }
+  componentWillUnmount() {
+    const {storageKey} = this.props
+    
+    if (typeof storageKey !== 'undefined') {
+      removeInstance(storageKey, this)
+    }
+  }
+  onChange(value) {
+    const {storageKey, serialize, shouldSyncChanges} = this.props
+    
+    if (typeof storageKey === 'undefined') {
       throw new Error(`ValueStore missing required prop 'storageKey'`)
     }
     
@@ -55,6 +88,7 @@ class ValueStore extends Component {
     
     AsyncStorage.setItem(storageKey, serialized).then(() => {
       this.setState({value})
+      shouldSyncChanges && updateOtherInstances(storageKey, this, value)
     })
   }
   render() {
@@ -74,12 +108,14 @@ ValueStore.propTypes = {
   render: React.PropTypes.func,
   serialize: React.PropTypes.func,
   deserialize: React.PropTypes.func,
+  shouldSyncChanges: React.PropTypes.bool,
 }
   
 ValueStore.defaultProps = {
   render: () => {},
   serialize: (value) => JSON.stringify(value),
   deserialize: (str) => JSON.parse(str),
+  shouldSyncChanges: true,
 }
 
 export default ValueStore

@@ -1,5 +1,5 @@
 {
-  "name": "React Native Value Store",
+  "name": "react-native-value-store",
   "version": "0.1.0",
   "author": "Devin Abbott <devinaabbott@gmail.com>",
   "main": "ValueStore.js",

@@ -12,7 +12,7 @@ const addInstance = (storageKey, instance) => {
 }
   
 const removeInstance = (storageKey, instance) => {
-  instances[storageKey] && instances[storageKey].remove(instance)
+  instances[storageKey] && instances[storageKey].delete(instance)
 }
 
 const updateOtherInstances = (storageKey, thisInstance, newValue) => {

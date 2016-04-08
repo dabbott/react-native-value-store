@@ -39,14 +39,16 @@ class ValueStore extends Component {
     const {storageKey, defaultValue, deserialize} = this.props
     
     if (typeof storageKey === 'undefined') {
-      throw new Error(`ValueStore missing required prop 'storageKey'`)
+      console.warn(`ValueStore missing required prop 'storageKey'`)
+      return
     }
     
     AsyncStorage.getItem(storageKey).then((value) => {
       try {
         value = deserialize(value)
       } catch (e) {
-        throw new Error(`ValueStore unable to deserialize value: ${value}`)
+        console.warn(`ValueStore unable to deserialize value: ${value}`)
+        return
       }
       
       if (value == null) {
@@ -78,7 +80,8 @@ class ValueStore extends Component {
     const {storageKey, serialize, shouldSyncChanges} = this.props
     
     if (typeof storageKey === 'undefined') {
-      throw new Error(`ValueStore missing required prop 'storageKey'`)
+      console.warn(`ValueStore missing required prop 'storageKey'`)
+      return
     }
     
     let serialized 
@@ -86,7 +89,8 @@ class ValueStore extends Component {
     try {
       serialized = serialize(value)  
     } catch (e) {
-      throw new Error(`ValueStore unable to serialize value: ${value}`)
+      console.warn(`ValueStore unable to serialize value: ${value}`)
+      return
     }
     
     AsyncStorage.setItem(storageKey, serialized).then(() => {
@@ -130,10 +134,29 @@ class ValueStore extends Component {
   }
   render() {
     const {value, loading} = this.state
-    const {style, debugMenu} = this.props
+    const {style, debugMenu, serialize} = this.props
+    
+    let element
+    try {
+      element = this.props.render(value, loading, this.onChange)
+    } catch (e) {
+      element = null
+      let serialized
+      try {
+        serialized = serialize(value)
+      } catch (e) {
+        serialized = value
+      }
+      console.warn(e)
+      console.warn(
+        `ValueStore prop 'render()' failed. The 'value' is ${serialized}. ` +
+        `Consider setting 'debugMenu={true}' and resetting the 'value'.`
+      )
+    }
+    
     return (
       <View style={style}>
-        {this.props.render(value, loading, this.onChange)}
+        {element}
         {debugMenu && this.renderDebugMenu()}
       </View>
     )
@@ -152,6 +175,7 @@ ValueStore.propTypes = {
   
 ValueStore.defaultProps = {
   render: () => {},
+  defaultValue: null,
   serialize: (value) => JSON.stringify(value),
   deserialize: (str) => JSON.parse(str),
   shouldSyncChanges: true,

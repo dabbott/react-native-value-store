@@ -2,6 +2,8 @@ import React, {
   Component,
   View,
   AsyncStorage,
+  TouchableOpacity,
+  Text,
 } from 'react-native'
 
 const instances = {}
@@ -31,6 +33,7 @@ class ValueStore extends Component {
       loading: true,
     }
     this.onChange = this.onChange.bind(this)
+    this.onReset = this.onReset.bind(this)
   }
   componentWillMount() {
     const {storageKey, defaultValue, deserialize} = this.props
@@ -91,12 +94,47 @@ class ValueStore extends Component {
       shouldSyncChanges && updateOtherInstances(storageKey, this, value)
     })
   }
+  onReset() {
+    const {defaultValue} = this.props
+    
+    this.onChange(defaultValue)
+  }
+  renderDebugMenu() {
+    return (
+      <TouchableOpacity
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "rgba(246,246,246,1)",
+          position: 'absolute',
+          top: -16,
+          left: 0,
+          opacity: 1,
+          paddingHorizontal: 4,
+          height: 16,
+          borderWidth: 1,
+          borderColor: "rgba(218,218,218,1)",
+          borderRadius: 15,
+        }}
+        onPress={this.onReset}
+        activeOpacity={75 / 100}>
+        <Text style={{
+          fontSize: 10,
+          textAlign: 'center',
+          alignSelf: 'center',
+          justifyContent: 'center',
+        }}>Reset to default</Text>
+      </TouchableOpacity>
+    )
+  }
   render() {
     const {value, loading} = this.state
-    const {style} = this.props
+    const {style, debugMenu} = this.props
     return (
       <View style={style}>
         {this.props.render(value, loading, this.onChange)}
+        {debugMenu && this.renderDebugMenu()}
       </View>
     )
   }
@@ -109,6 +147,7 @@ ValueStore.propTypes = {
   serialize: React.PropTypes.func,
   deserialize: React.PropTypes.func,
   shouldSyncChanges: React.PropTypes.bool,
+  debugMenu: React.PropTypes.bool,
 }
   
 ValueStore.defaultProps = {
@@ -116,6 +155,7 @@ ValueStore.defaultProps = {
   serialize: (value) => JSON.stringify(value),
   deserialize: (str) => JSON.parse(str),
   shouldSyncChanges: true,
+  debugMenu: false,
 }
 
 export default ValueStore

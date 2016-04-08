@@ -1,1 +1,116 @@
-{}
+{
+	"liveValues": [
+		{
+			"range": {
+				"from": {
+					"line": 105,
+					"ch": 25
+				},
+				"to": {
+					"line": 105,
+					"ch": 30
+				}
+			},
+			"editWith": "dropdown",
+			"dropdownOptions": "FlexDirection",
+			"type": "string",
+			"name": "FlexDirection"
+		},
+		{
+			"range": {
+				"from": {
+					"line": 106,
+					"ch": 26
+				},
+				"to": {
+					"line": 106,
+					"ch": 34
+				}
+			},
+			"editWith": "dropdown",
+			"dropdownOptions": "JustifyContent",
+			"type": "string",
+			"name": "JustifyContent",
+			"group": "VIEW"
+		},
+		{
+			"range": {
+				"from": {
+					"line": 107,
+					"ch": 22
+				},
+				"to": {
+					"line": 107,
+					"ch": 30
+				}
+			},
+			"editWith": "dropdown",
+			"dropdownOptions": "AlignItems",
+			"type": "string",
+			"name": "AlignItems",
+			"group": "VIEW"
+		},
+		{
+			"range": {
+				"from": {
+					"line": 108,
+					"ch": 27
+				},
+				"to": {
+					"line": 108,
+					"ch": 48
+				}
+			},
+			"editWith": "colorPicker",
+			"type": "string",
+			"name": "BackgroundColor",
+			"group": "VIEW"
+		},
+		{
+			"range": {
+				"from": {
+					"line": 116,
+					"ch": 23
+				},
+				"to": {
+					"line": 116,
+					"ch": 44
+				}
+			},
+			"editWith": "colorPicker",
+			"type": "string",
+			"name": "BorderColor"
+		},
+		{
+			"range": {
+				"from": {
+					"line": 117,
+					"ch": 24
+				},
+				"to": {
+					"line": 117,
+					"ch": 26
+				}
+			},
+			"type": "number",
+			"name": "BorderRadius"
+		},
+		{
+			"range": {
+				"from": {
+					"line": 120,
+					"ch": 23
+				},
+				"to": {
+					"line": 120,
+					"ch": 25
+				}
+			},
+			"type": "number",
+			"name": "ActiveOpacity",
+			"min": 0,
+			"max": 100,
+			"group": "TOUCHABLE OPACITY"
+		}
+	]
+}

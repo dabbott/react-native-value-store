@@ -19,6 +19,7 @@ class Project extends Component {
         <ValueStore
           storageKey={'testing'}
           defaultValue={['a', 'b', 'c']}
+          debugMenu={true}
           render={(data, loading, onChange) => {
             console.log('data', data, 'loading', loading)
             return loading ? (
@@ -37,6 +38,7 @@ class Project extends Component {
           storageKey={"TEST"}
           style={{backgroundColor: "rgb(80,227,194)"}}
           defaultValue={Math.random()}
+          debugMenu={true}
           render={(value, loading, onChange) => {
             return loading ? (
               <Text>Loading...</Text>

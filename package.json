@@ -1,0 +1,12 @@
+{
+  "name": "React Native Value Store",
+  "version": "0.1.0",
+  "author": "Devin Abbott <devinaabbott@gmail.com>",
+  "main": "ValueStore.js",
+  "description": "A simple wrapper for storing a value in AsyncStorage",
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}

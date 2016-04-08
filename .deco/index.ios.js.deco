@@ -1,0 +1,51 @@
+{
+	"liveValues": [
+		{
+			"range": {
+				"from": {
+					"line": 28,
+					"ch": 31
+				},
+				"to": {
+					"line": 28,
+					"ch": 33
+				}
+			},
+			"type": "number",
+			"name": "ActiveOpacity",
+			"min": 0,
+			"max": 100,
+			"group": "TOUCHABLE OPACITY"
+		},
+		{
+			"range": {
+				"from": {
+					"line": 36,
+					"ch": 22
+				},
+				"to": {
+					"line": 36,
+					"ch": 28
+				}
+			},
+			"editWith": "inputField",
+			"type": "string",
+			"name": "StorageKey"
+		},
+		{
+			"range": {
+				"from": {
+					"line": 37,
+					"ch": 35
+				},
+				"to": {
+					"line": 37,
+					"ch": 52
+				}
+			},
+			"editWith": "colorPicker",
+			"type": "string",
+			"name": "BackgroundColor"
+		}
+	]
+}

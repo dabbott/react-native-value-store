@@ -1,0 +1,34 @@
+{
+	"liveValues": [
+		{
+			"range": {
+				"from": {
+					"line": 1,
+					"ch": 14
+				},
+				"to": {
+					"line": 1,
+					"ch": 20
+				}
+			},
+			"editWith": "inputField",
+			"type": "string",
+			"name": "StorageKey"
+		},
+		{
+			"range": {
+				"from": {
+					"line": 2,
+					"ch": 27
+				},
+				"to": {
+					"line": 2,
+					"ch": 44
+				}
+			},
+			"editWith": "colorPicker",
+			"type": "string",
+			"name": "BackgroundColor"
+		}
+	]
+}
